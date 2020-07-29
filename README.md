@@ -1,2 +1,2 @@
-# -BlazorSimpleOrderMgmt
- Blazor Simple Order Management Demo
+# Blazor Simple Order Management Demo
+ A simple app shows how to reuse blazor components.
