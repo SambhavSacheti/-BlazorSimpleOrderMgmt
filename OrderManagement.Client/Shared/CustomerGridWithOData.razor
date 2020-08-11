@@ -1,0 +1,65 @@
+@inject HttpClient Http
+@using OrderManagement.Shared.Models
+@using ODataWithoutEF.Models
+
+<h2>Page Naviagation with Odata</h2>
+
+<RadzenGrid Count=1000 Data="@Customers" LoadData="@LoadData" AllowSorting="true"  AllowPaging="true" PageSize=10 TItem="Customer" ColumnWidth="200px">
+    <Columns>
+    <RadzenGridColumn TItem="Customer" Context="data"   Property="Avatar_Url" Width="50px">
+    <Template>
+        <img src="@data.Avatar_Url" />
+    </Template>
+    </RadzenGridColumn>
+    <RadzenGridColumn TItem="Customer" Property="first_name" Title="First Name" />
+    <RadzenGridColumn TItem="Customer" Context="data" Property="last_name" Title="Last Name" />
+    <RadzenGridColumn TItem="Customer" Context="data" Property="gender" Title="gender" />
+    <RadzenGridColumn TItem="Customer" Property="Address1" Title="Address 1" />
+    <RadzenGridColumn TItem="Customer" Property="City" Title="City" />
+    </Columns>
+</RadzenGrid>
+
+
+
+
+@code{
+    private IEnumerable<Customer> Customers;
+    int count;
+
+    private const string ServiceEndpoint = "https://localhost:2001/api/";
+    private readonly Uri baseUri = new Uri(ServiceEndpoint);
+
+
+    partial void OnGetCustomers(HttpRequestMessage requestMessage);
+    private async Task<IEnumerable<Customer>> GetCustomers(string filter = default(string), int? top = default(int?), int? skip = default(int?), string orderby = default(string), string expand = default(string), string select = default(string), bool? count = default(bool?))
+    {
+        var uri = new Uri(baseUri, $"Customer");
+        uri = uri.GetODataUri(filter: filter, top: top, skip: skip, orderby: orderby, expand: expand, select: select, count: count);
+
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+
+        OnGetCustomers(httpRequestMessage);
+
+        var response = await Http.SendAsync(httpRequestMessage);
+
+        Console.WriteLine($"JsonContent: {response.Content}");
+        return await response.Content.ReadFromJsonAsync<IEnumerable<Customer>>();
+    }
+
+    async Task LoadData(LoadDataArgs args)
+    {
+        var results = await GetCustomers(filter: args.Filter, top: args.Top, skip: args.Skip, orderby: args.OrderBy, count: true);
+        // Customers = result.Value.AsODataEnumerable();
+        if (results != null)
+        {
+            Customers = results;
+            count = Customers.Count();
+        }
+        else
+        {
+            Console.WriteLine("Results is null");
+        }
+
+        StateHasChanged();
+    }
+}

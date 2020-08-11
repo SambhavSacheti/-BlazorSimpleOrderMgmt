@@ -1,0 +1,80 @@
+@inject DialogService dialogService
+@using OrderManagement.Shared.Models
+<EditForm Model="customer">
+  <div class="form-row">
+       <div class="form-group col-md-6">
+      <label for="inputfirstName">FirstName</label>
+      <InputText @bind-Value="customer.first_name" class="form-control" id="inputfirstName" />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputLastName">LastName</label>
+      <InputText @bind-Value="customer.last_name"  class="form-control" id="inputLastName" />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <InputText @bind-Value="customer.email" class="form-control" id="inputEmail4" />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputGender">Gender</label>
+      <InputText @bind-Value="customer.gender"  class="form-control" id="inputGender" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address 1</label>
+    <InputText @bind-Value="customer.Address1"  class="form-control" id="inputAddress" placeholder="1234 Main St" />
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <InputText @bind-Value="customer.Address2"  class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <InputText @bind-Value="customer.City"  class="form-control" id="inputCity" />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <InputSelect  id="inputState" class="form-control" @bind-Value="customer.State">
+        <option value="">Choose...</option>
+        <option value="">Choose...</option>
+      </InputSelect>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <InputText @bind-Value="customer.ZipCode" type="text" class="form-control" id="inputZip" />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+ <div class="row">
+    <div class="col-md-12">
+        <RadzenButton Click="@((args) => dialogService.Close((true,customer)))" Text="Save" Style="margin-bottom: 10px; width: 150px" />
+        <RadzenButton Click="@((args) => dialogService.Close((false,new Customer())))" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="margin-bottom: 10px; width: 150px" />
+        <RadzenImage Path="@customer.Avatar_Url" Style="width:50px; margin-bottom: 10px;"  />
+    </div>
+</div>
+</EditForm>
+
+
+@code{
+    
+
+    [Parameter]
+    public Customer customer {get;set;} = new Customer();
+
+   protected override void  OnParametersSet(){
+      Console.WriteLine($"Parameter Set: {customer.first_name}");
+
+    }
+
+    protected override void  OnInitialized(){
+      Console.WriteLine($"Initialized: {customer.first_name}");
+    }
+
+}

@@ -1,0 +1,28 @@
+[
+    {
+        "id": 1,
+        "email": "rpetticrow0@ning.com",
+        "first_name": "Rurik",
+        "last_name": "Petticrow",
+        "gender": "Male",
+        "Street_Number": "58",
+        "Address1": "82 Farwell Plaza",
+        "Address2": "https://robohash.org/quonobisdicta.jpg?size=50x50&set=set1",
+        "City": "Yurkivka",
+        "Avatar_Url": "https://robohash.org/doloremomnisnostrum.jpg?size=50x50&set=set1"
+    },
+    {
+        "id": 2,
+        "email": "jgatty1@hatena.ne.jp",
+        "first_name": "Jeremy",
+        "last_name": "Gatty",
+        "gender": "Male",
+        "Street_Number": "6",
+        "Address1": "7 Starling Hill",
+        "Address2": "https://robohash.org/doloresetalias.jpg?size=50x50&set=set1",
+        "City": "Nonoichi",
+        "Zip": "793-0066",
+        "Avatar_Url": "https://robohash.org/repellatomnisvoluptatem.jpg?size=50x50&set=set1"
+    }
+    
+]
