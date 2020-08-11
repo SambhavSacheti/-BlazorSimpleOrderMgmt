@@ -29,42 +29,51 @@ else{
 </RadzenGrid>
 }
 @code{
-
     [Parameter]
-    public Customer[] Customers  {get;set;}
+    public Customer[] Customers { get; set; }
 
-    private Customer _selectedCustomer {get;set;}
-    
+    private Customer _selectedCustomer { get; set; }
 
-     async void Open(string title){
-        await InvokeAsync(()=>{StateHasChanged();});
+
+    async void Open(string title)
+    {
+        await InvokeAsync(() => { StateHasChanged(); });
     }
 
-        protected override async Task OnInitializedAsync(){
-      Customers =  await  Http.GetFromJsonAsync<Customer[]>(@"https://localhost:2001/api/customer");
-           dialogService.OnClose += Close;
-    }  
+    protected override async Task OnInitializedAsync()
+    {
+        Customers = await Http.GetFromJsonAsync<Customer[]>(@"https://localhost:2001/api/customer");
+        dialogService.OnClose += Close;
+    }
 
-    private void Close(dynamic result){
-        
-        (bool isEdited, Customer editedCustomer) = ((bool, Customer))result;
-
-        if(!isEdited)
-        return;
-            
-        for(int i=0;i<Customers.Count();i++)
+    private void Close(dynamic result)
+    {
+        try
         {
-            if(Customers[i].id == editedCustomer.id )
+            (bool isEdited, Customer editedCustomer) = ((bool, Customer))result;
+
+            if (!isEdited)
+                return;
+
+            for (int i = 0; i < Customers.Count(); i++)
             {
-                Customers[i] = editedCustomer;
-                break;
+                if (Customers[i].id == editedCustomer.id)
+                {
+                    Customers[i] = editedCustomer;
+                    break;
+                }
             }
         }
-        
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
         StateHasChanged();
     }
 
-    private void RowSelected(Customer customer){
+    private void RowSelected(Customer customer)
+    {
         Console.WriteLine(customer);
         dialogService.Open<AddEditForm>($"Customer: {customer.first_name} {customer.last_name}",
               new Dictionary<string, object>() { { "customer", customer } });

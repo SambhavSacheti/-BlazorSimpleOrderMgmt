@@ -1,10 +1,11 @@
 @inject HttpClient Http
+@inject DialogService dialogService
 @using OrderManagement.Shared.Models
 @using ODataWithoutEF.Models
 
 <h2>Page Naviagation with Odata</h2>
 
-<RadzenGrid Count=1000 Data="@Customers" LoadData="@LoadData" AllowSorting="true"  AllowPaging="true" PageSize=10 TItem="Customer" ColumnWidth="200px">
+<RadzenGrid Count=1000 Data="@Customers" LoadData="@LoadData" AllowSorting="true"  AllowPaging="true" PageSize=10 TItem="Customer" ColumnWidth="200px" RowDoubleClick="RowSelected">
     <Columns>
     <RadzenGridColumn TItem="Customer" Context="data"   Property="Avatar_Url" Width="50px">
     <Template>
@@ -23,7 +24,7 @@
 
 
 @code{
-    private IEnumerable<Customer> Customers;
+    private Customer[]  Customers;
     int count;
 
     private const string ServiceEndpoint = "https://localhost:2001/api/";
@@ -52,14 +53,46 @@
         // Customers = result.Value.AsODataEnumerable();
         if (results != null)
         {
-            Customers = results;
+            Customers = results.ToArray();
             count = Customers.Count();
         }
         else
         {
             Console.WriteLine("Results is null");
+        }        
+        StateHasChanged();
+    }
+
+    private void Close(dynamic result)
+    {
+        try
+        {
+            (bool isEdited, Customer editedCustomer) = ((bool, Customer))result;
+
+            if (!isEdited)
+                return;
+
+            for (int i = 0; i < Customers.Count(); i++)
+            {
+                if (Customers[i].id == editedCustomer.id)
+                {
+                    Customers[i] = editedCustomer;
+                    break;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
         }
 
         StateHasChanged();
+    }
+
+      private void RowSelected(Customer customer)
+    {
+        Console.WriteLine(customer);
+        dialogService.Open<AddEditForm>($"Customer: {customer.first_name} {customer.last_name}",
+              new Dictionary<string, object>() { { "customer", customer } });
     }
 }
