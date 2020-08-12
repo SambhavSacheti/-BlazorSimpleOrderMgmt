@@ -4,7 +4,7 @@
   <div class="form-row">
        <div class="form-group col-md-6">
       <label for="inputfirstName">FirstName</label>
-      <InputText @bind-Value="customer.first_name" class="form-control" id="inputfirstName" />
+      <TextBoxBase Class="form-control"  Value="customer.first_name" Id="inputfirstName" />
     </div>
     <div class="form-group col-md-6">
       <label for="inputLastName">LastName</label>
@@ -54,9 +54,9 @@
   </div>
  <div class="row">
     <div class="col-md-12">
-        <RadzenButton Click="@((args) => dialogService.Close((true,customer)))" Text="Save" Style="margin-bottom: 10px; width: 150px" />
-        <RadzenButton Click="@((args) => dialogService.Close((false,new Customer())))" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="margin-bottom: 10px; width: 150px" />
-        <RadzenImage Path="@customer.Avatar_Url" Style="width:50px; margin-bottom: 10px;"  />
+        <ButtonBase Click = "@((args) => dialogService.Close((true,customer)))" Text = "Save" Style="margin-bottom: 10px; width: 150px"/>
+        <ButtonBase Click = "@((args) => dialogService.Close((false,new Customer())))" Text = "Cancel" Style="margin-bottom: 10px; width: 150px;color:#fff;background-color: #6c757d;border-color: #6c757d;"/>
+        <ImageBase Path="@customer.Avatar_Url" Style="width:50px; margin-bottom: 10px;"  />
     </div>
 </div>
 </EditForm>
