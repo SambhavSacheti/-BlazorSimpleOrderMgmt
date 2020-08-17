@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using OrderManagement.Shared.Models;
+using OrderManagement.WebApi.Data;
+using OrderManagement.WebApi.Services;
 
-namespace ODataWithoutEF
+namespace OrderManagement.WebApi
 {
     public class Startup
     {
@@ -27,13 +31,16 @@ namespace ODataWithoutEF
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(MvcOptions=>MvcOptions.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Latest);
-            services.AddOData();
+            services.AddDbContext<OrderManagementDbContext>(opt =>
+               opt.UseSqlite("Data Source=OrderManagement.db"));
+            services.AddControllers();
+            services.AddHealthChecks();
+            services.AddScoped<ICustomerDataService,CustomerDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        { 
             if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
@@ -48,12 +55,12 @@ namespace ODataWithoutEF
             .AllowAnyMethod()
              .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization)
              .AllowCredentials());
-
             app.UseHttpsRedirection();
-            app.UseMvc(builder =>
+            app.UseRouting();
+             app.UseEndpoints(endpoints =>
             {
-                builder.EnableDependencyInjection();
-                builder.Expand().Select().OrderBy().Count().Filter().SkipToken().MaxTop(5000);
+                endpoints.MapHealthChecks("/healthcheck");
+                endpoints.MapControllers();
             });
         }
     }

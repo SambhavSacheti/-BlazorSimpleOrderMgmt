@@ -9,11 +9,12 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/OrderManagement.WebApi/bin/Debug/net5.0/OrderManagement.WebApi.dll",
+            "program": "${workspaceFolder}/WebApi/OrderManagement.WebApi/bin/Debug/net5.0/OrderManagement.WebApi.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/OrderManagement.WebApi",
+            "cwd": "${workspaceFolder}/WebApi/OrderManagement.WebApi",
             "stopAtEntry": false,
-            "console": "internalConsole"
+            "console": "internalConsole",
+            "enableStepFiltering": false
         },
         
         {
