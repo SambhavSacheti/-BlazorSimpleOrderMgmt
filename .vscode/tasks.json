@@ -2,15 +2,41 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "buildClient",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/OrderManagement.Client/OrderManagement.Client.csproj",
+                "${workspaceFolder}/Client/OrderManagement.Client/OrderManagement.Client.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "buildWebApi",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/WebApi/OrderManagement.WebApi/OrderManagement.WebApi.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Run Integration Tests",
+            "command": "dotnet",
+            "type": "shell",
+            "group": "test",
+            "args": [
+                "test",
+                "${workspaceFolder}/WebApi/OrderManagement.WebApi.IntegrationTests/OrderManagement.WebApi.IntegrationTests.csproj"
+            ],
+            "presentation": {
+                "reveal": "always"
+            },
             "problemMatcher": "$msCompile"
         },
         {

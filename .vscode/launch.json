@@ -8,7 +8,7 @@
             "name": "WebApi (console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "buildWebApi",
             "program": "${workspaceFolder}/WebApi/OrderManagement.WebApi/bin/Debug/net5.0/OrderManagement.WebApi.dll",
             "args": [],
             "cwd": "${workspaceFolder}/WebApi/OrderManagement.WebApi",
@@ -16,13 +16,13 @@
             "console": "internalConsole",
             "enableStepFiltering": false
         },
-        
         {
             "type": "blazorwasm",
-            "name": "Blazor WebAssembly - OData Demo",
+            "name": "Blazor WebAssembly Client",
             "request": "launch",
+            "preLaunchTask": "buildClient",
             "browser": "edge",
-            "cwd": "${workspaceFolder}/OrderManagement.Client"
+            "cwd": "${workspaceFolder}/Client/OrderManagement.Client"
         },
 
 

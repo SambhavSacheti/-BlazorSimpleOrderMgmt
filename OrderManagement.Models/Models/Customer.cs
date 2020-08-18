@@ -1,6 +1,6 @@
 using System;
 
-namespace OrderManagement.Shared.Models
+namespace OrderManagement.Models
 {
     public class Customer    {
         public Customer()

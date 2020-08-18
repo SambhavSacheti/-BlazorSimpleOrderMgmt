@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using OrderManagement.Shared.Models;
+using OrderManagement.Models;
 
 namespace OrderManagement.WebApi.Services
 {

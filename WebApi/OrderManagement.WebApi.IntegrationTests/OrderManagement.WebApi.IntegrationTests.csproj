@@ -20,7 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-  <ProjectReference Include="..\OrderManagement.WebApi\OrderManagement.WebApi.csproj" />
+    <ProjectReference Include="..\OrderManagement.WebApi\OrderManagement.WebApi.csproj" />
+    <ProjectReference Include="..\..\OrderManagement.Models\OrderManagement.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
-using OrderManagement.Shared.Models;
+using OrderManagement.Models;
 
 namespace OrderManagement.WebApi.Data
 {

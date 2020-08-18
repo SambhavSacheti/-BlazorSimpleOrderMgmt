@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrderManagement.Shared\OrderManagement.Shared.csproj" />
+    <ProjectReference Include="..\..\OrderManagement.Models\OrderManagement.Models.csproj" />
   </ItemGroup>
 
 </Project>

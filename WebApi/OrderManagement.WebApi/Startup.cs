@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using OrderManagement.Shared.Models;
+using OrderManagement.Models;
 using OrderManagement.WebApi.Data;
 using OrderManagement.WebApi.Services;
 
@@ -32,7 +32,7 @@ namespace OrderManagement.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<OrderManagementDbContext>(opt =>
-               opt.UseSqlite(@"Data Source=C:\Data\OrderManagement.db"));
+               opt.UseSqlite( Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddHealthChecks();
             services.AddScoped<ICustomerDataService,CustomerDataService>();

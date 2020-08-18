@@ -3,8 +3,9 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using OrderManagement.Models;
 
-namespace OrderManagement.Shared.Models
+namespace OrderManagement.UI.Services
 {
     public class CustomerService : ICustomerService
     {

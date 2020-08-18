@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Radzen;
-using OrderManagement.Shared.Models;
+using OrderManagement.UI.Services;
+
 
 namespace OrderManagement.Client
 {

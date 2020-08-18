@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
-using OrderManagement.Shared.Models;
+using OrderManagement.Models;
 using OrderManagement.WebApi.Data;
 
 namespace OrderManagement.WebApi.Services
@@ -16,8 +16,8 @@ namespace OrderManagement.WebApi.Services
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-             if (_context.Database.EnsureCreated())
-                 setupCustomerData();
+             //if (_context.Database.EnsureCreated())
+              //   setupCustomerData();
             return new List<Customer>(_context.Customers);
         }
 

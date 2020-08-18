@@ -1,14 +1,13 @@
 using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
-using OrderManagement.WebApi;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Net;
 using System.Net.Http.Json;
-using OrderManagement.Shared.Models;
+using OrderManagement.Models;
 using System;
 
-namespace OrderManagement.WebApi.IntegrationTests{
+namespace OrderManagement.WebApi.IntegrationTests
+{
     public class CustomersControllerTests:IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
