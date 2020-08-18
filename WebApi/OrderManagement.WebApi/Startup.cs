@@ -32,7 +32,7 @@ namespace OrderManagement.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<OrderManagementDbContext>(opt =>
-               opt.UseSqlite("Data Source=OrderManagement.db"));
+               opt.UseSqlite(@"Data Source=C:\Data\OrderManagement.db"));
             services.AddControllers();
             services.AddHealthChecks();
             services.AddScoped<ICustomerDataService,CustomerDataService>();

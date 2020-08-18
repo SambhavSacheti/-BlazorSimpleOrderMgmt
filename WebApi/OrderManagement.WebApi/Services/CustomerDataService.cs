@@ -12,29 +12,23 @@ namespace OrderManagement.WebApi.Services
         public CustomerDataService(OrderManagementDbContext context)
         {
             _context = context;
-            if (_context.Database.EnsureCreated())
-            {
-                if (_context.Customers == null)
-                {
-                    string fileContent;
-                    fileContent = System.IO.File.ReadAllText("sample-data/Customers.json");
-                    IEnumerable<Customer> customers = JsonSerializer.Deserialize<IEnumerable<Customer>>(fileContent);
-                    _context.Customers.AddRange(customers);
-                    _context.SaveChanges();
-                }
-
-            }
         }
 
         public IEnumerable<Customer> GetAllCustomers()
         {
+             if (_context.Database.EnsureCreated())
+                 setupCustomerData();
             return new List<Customer>(_context.Customers);
         }
 
-        // public IEnumerable<Customer> GetCustomers()
-        // {
-        //     return new List<Customer>(_context.Customers.FindAsync());
-        // }
+        private void setupCustomerData()
+        {
+            string fileContent;
+            fileContent = System.IO.File.ReadAllText("sample-data/Customers.json");
+            IEnumerable<Customer> customers = JsonSerializer.Deserialize<IEnumerable<Customer>>(fileContent);
+            _context.Customers.AddRange(customers);
+            _context.SaveChanges();
+        }
 
     }
 }

@@ -21,6 +21,7 @@
             "type": "blazorwasm",
             "name": "Blazor WebAssembly - OData Demo",
             "request": "launch",
+            "browser": "edge",
             "cwd": "${workspaceFolder}/OrderManagement.Client"
         },
 
