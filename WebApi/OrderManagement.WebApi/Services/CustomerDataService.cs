@@ -16,9 +16,9 @@ namespace OrderManagement.WebApi.Services
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-             //if (_context.Database.EnsureCreated())
-              //   setupCustomerData();
-            return new List<Customer>(_context.Customers);
+             if (_context.Database.EnsureCreated())
+                 setupCustomerData();
+                return new List<Customer>(_context.Customers);
         }
 
         private void setupCustomerData()
