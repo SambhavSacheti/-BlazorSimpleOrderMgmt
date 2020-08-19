@@ -18,7 +18,7 @@ namespace OrderManagement.WebApi.IntegrationTests
 
         [Fact]
         public async Task HealthCheck_ReturnsOK(){
-            var response = await _httpClient.GetAsync("/healthceck");
+            var response = await _httpClient.GetAsync("/healthcheck");
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }

@@ -11,7 +11,7 @@ using OrderManagement.WebApi.Data;
 using Microsoft.AspNetCore.Http;
 using OrderManagement.WebApi.Services;
 
-namespace OrderManagement.Controllers
+namespace OrderManagement.Controllers   
 {
     [ApiController]
     [Route("api/[controller]")]
