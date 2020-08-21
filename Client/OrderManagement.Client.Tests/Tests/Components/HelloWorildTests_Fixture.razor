@@ -1,0 +1,19 @@
+@inherits TestComponentBase
+
+<Fixture Test="HelloWorldComponentRendersCorrectly">
+  <ComponentUnderTest>
+    <HelloWorld />
+  </ComponentUnderTest>
+
+  @code
+  {
+    void HelloWorldComponentRendersCorrectly(Fixture fixture)
+    {
+      // Act
+      var cut = fixture.GetComponentUnderTest<HelloWorld>();
+
+      // Assert
+      cut.MarkupMatches("<h1>Hello world from Blazor</h1>");
+    }
+  }
+</Fixture>
