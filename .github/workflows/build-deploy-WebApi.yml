@@ -1,0 +1,16 @@
+name: build-inside
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v1
+      with:
+        dockerfile: Dockerfile.ubuntu-x64
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+        repository: ${{ format('{0}/build-inside-test', secrets.DOCKERHUB_USERNAME) }}
+        tags: latest

@@ -38,7 +38,7 @@ namespace OrderManagement.WebApi.IntegrationTests
             
             var response = await _client.GetAsync(string.Empty);
 
-            Assert.NotNull(response.Content);
+            Assert.NotNull(null);
             Assert.True(response.Content.Headers.ContentLength>0);
         }
 

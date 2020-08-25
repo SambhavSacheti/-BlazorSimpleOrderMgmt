@@ -42,7 +42,7 @@ namespace OrderManagement.WebApi
                         { 
                             Title = "Order API", 
                             Version = "v1" , 
-                            Description="This is a Orders API to test latest technologies in the .NET world",
+                            Description=EnvironmentInfo.GetFormattedInfo(),
                             Contact=
                             new OpenApiContact{
                                 Name="Darth Vader", 
