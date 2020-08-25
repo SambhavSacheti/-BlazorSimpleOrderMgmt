@@ -16,6 +16,7 @@ using Microsoft.Net.Http.Headers;
 using OrderManagement.Models;
 using OrderManagement.WebApi.Data;
 using OrderManagement.WebApi.Services;
+using Microsoft.OpenApi.Models;
 
 namespace OrderManagement.WebApi
 {
@@ -34,6 +35,23 @@ namespace OrderManagement.WebApi
             services.AddDbContext<OrderManagementDbContext>(opt =>
                opt.UseSqlite( Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c=>
+                    c.SwaggerDoc("v1", 
+                        new OpenApiInfo 
+                        { 
+                            Title = "Order API", 
+                            Version = "v1" , 
+                            Description="This is a Orders API to test latest technologies in the .NET world",
+                            Contact=
+                            new OpenApiContact{
+                                Name="Darth Vader", 
+                                Email="Darth.Vader@DeathStar.com",
+                                Url=new Uri("https://en.wikipedia.org/wiki/Death_Star")
+                                }
+                        }
+                        )
+                    );
             services.AddHealthChecks();
             services.AddScoped<ICustomerDataService,CustomerDataService>();
         }
@@ -50,6 +68,8 @@ namespace OrderManagement.WebApi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
             app.UseCors(policy => 
             policy.WithOrigins("http://localhost:5000", "https://localhost:5001")
             .AllowAnyMethod()
@@ -57,6 +77,16 @@ namespace OrderManagement.WebApi
              .AllowCredentials());
             app.UseHttpsRedirection();
             app.UseRouting();
+            
+             // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order API V1");
+                c.RoutePrefix = string.Empty;
+            });
              app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/healthcheck");
