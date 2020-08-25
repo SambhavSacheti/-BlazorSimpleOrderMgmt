@@ -1,11 +1,11 @@
-
-@inject DialogService dialogService
 @using OrderManagement.Models
+@inject DialogService dialogService
+@inject IConfiguration Configuration
+
 @inject HttpClient Http
 @page "/CustomerGridWithoutOData"
 
 <h2>Customers Datagrid</h2>
-
 
 @if (Customers == null)
 {
@@ -42,7 +42,8 @@ else{
 
     protected override async Task OnInitializedAsync()
     {
-        Customers = await Http.GetFromJsonAsync<Customer[]>(@"https://localhost:2001/api/customer");
+        string ordersApiUrl = Configuration["OrderApi-Url"];
+        Customers = await Http.GetFromJsonAsync<Customer[]>(ordersApiUrl);
         dialogService.OnClose += Close;
     }
 
