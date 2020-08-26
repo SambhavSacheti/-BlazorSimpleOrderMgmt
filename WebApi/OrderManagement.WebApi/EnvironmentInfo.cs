@@ -15,7 +15,7 @@ namespace OrderManagement.WebApi
                     $"WebAPI running on: {OperatingSystem}"
                 );
 
-            //formattedInfo.Append($" and the machine name is: {Environment.MachineName}");
+            formattedInfo.Append($" and the machine name is: {Environment.MachineName}");
             
             return formattedInfo.ToString();
         }
