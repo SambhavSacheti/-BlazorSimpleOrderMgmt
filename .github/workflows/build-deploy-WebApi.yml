@@ -1,4 +1,4 @@
-name: build-inside
+name: Build and Deploy Orders API
 on: [push]
 jobs:
   build:
